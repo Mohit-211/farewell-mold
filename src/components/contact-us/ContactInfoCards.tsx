@@ -11,7 +11,7 @@ export function ContactInfoCards() {
   return (
     <section aria-label="Contact information" className="container-x grid gap-5 pb-20 md:grid-cols-3">
       {CARDS.map(({ icon: Icon, label, value, href }) => (
-        <div key={label} className="rounded-md border border-border bg-card p-8 transition-all hover:border-gold/60 hover:shadow-soft">
+        <div key={label} className="reveal rounded-md border border-border bg-card p-8 transition-all hover:border-gold/60 hover:shadow-soft">
           <Icon className="h-7 w-7 text-gold-deep" strokeWidth={1.4} />
           <h2 className="eyebrow mt-5">{label}</h2>
           {href ? (

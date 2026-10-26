@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Manrope } from "next/font/google";
+import { ScrollReveal } from "@/components/layout/ScrollReveal";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import "./globals.css";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <ScrollReveal />
       </body>
     </html>
   );

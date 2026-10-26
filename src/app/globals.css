@@ -103,22 +103,28 @@
 }
 @utility gold-rule { display: block; height: 2px; width: 3.5rem; background-image: var(--gradient-gold); }
 /*
- * Scroll reveal: content fades and lifts into place as it scrolls into view. It's driven by the scroll
- * position in CSS, so there's no JavaScript and nothing can get stuck hidden. Browsers without
- * scroll-driven animations, and visitors who prefer reduced motion, just see the content.
+ * Scroll reveal: <ScrollReveal /> (root layout) marks `.reveal` elements that start below the viewport as
+ * hidden, then plays this animation as each one scrolls into view, staggered when several arrive together.
+ * Without JavaScript nothing is hidden. Visitors who prefer reduced motion get a plain fade.
  */
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(1.5rem); }
+  from { opacity: 0; transform: translateY(2rem); }
+}
+@keyframes reveal-fade {
+  from { opacity: 0; }
 }
 @utility reveal {
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      animation-name: reveal;
-      animation-timing-function: ease-out;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 10rem;
+  &[data-reveal="hidden"],
+  &[data-reveal="shown"] {
+    animation: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: reveal-fade;
     }
+  }
+  /* Parked on the first, invisible frame until it scrolls into view. Unlike opacity: 0 this leaves the
+     element's own styles untouched, so cards with `transition-all` don't start a competing transition. */
+  &[data-reveal="hidden"] {
+    animation-play-state: paused;
   }
 }
 
